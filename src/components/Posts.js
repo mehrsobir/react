@@ -8,6 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
+	post: {
+		backgroundColor: '#DBD0B7',
+		paddingBottom: '10px'
+	},
 	cardMedia: {
 		paddingTop: '56.25%', // 16:9
 	},
@@ -23,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 	postTitle: {
 		fontSize: '16px',
 		textAlign: 'left',
+		height: '36px',
 	},
 	postText: {
 		display: 'flex',
@@ -31,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '12px',
 		textAlign: 'left',
 		marginBottom: theme.spacing(2),
+		height: '150px'
 	},
 }));
 
@@ -40,36 +46,42 @@ const Posts = (props) => {
 	if (!posts || posts.length === 0) return <p>Can not find any posts, sorry</p>;
 	return (
 		<React.Fragment>
-			<Container maxWidth="md" component="main">
-				<Grid container spacing={5} alignItems="flex-end">
+			<Container maxWidth="md" component="main" className={classes.post}>
+            <Typography variant = "h4">
+			    Latest Posts
+			</Typography>
+				<Grid container spacing={3} alignItems="flex-end">
 					{posts.map((post) => {
 						return (
 							// Enterprise card is full width at sm breakpoint
-							<Grid item key={post.id} xs={12} md={4}>
+							<Grid item key={post.author} xs={12} md={4}>
 								<Card className={classes.card}>
 									<CardMedia
 										className={classes.cardMedia}
 										image="https://source.unsplash.com/random"
-										title="Image title"
-									/>
+										title="Rasm"/>
 									<CardContent className={classes.cardContent}>
 										<Typography
 											gutterBottom
-											variant="h6"
+											variant="h2 "
 											component="h2"
-											className={classes.postTitle}
-										>
+											className={classes.postTitle}>
 											{post.title.substr(0, 50)}...
 										</Typography>
-										<div className={classes.postText}>
-											<Typography
-												component="p"
-												color="textPrimary"
-											></Typography>
-											<Typography variant="p" color="textSecondary">
-												{post.excerpt.substr(0, 60)}...
+										<div>
+											<Typography variant="p" color="textSecondary"
+											                className={classes.postText}>
+												{post.annotation}...
 											</Typography>
 										</div>
+										<div>
+											<Typography variant="p" color="textPrimary">
+												Мақолаи {post.type.toLowerCase()}
+											</Typography>
+										</div>
+											<Typography variant="p" color="textPrimary">
+												Мавзӯъ:  {post.category.toLowerCase()}
+											</Typography>
 									</CardContent>
 								</Card>
 							</Grid>

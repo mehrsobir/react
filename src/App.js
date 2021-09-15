@@ -3,6 +3,8 @@ import './App.css';
 import Posts from './components/Posts';
 import PostLoadingComponent from './components/PostLoading';
 
+import 'fontsource-roboto'
+
 function App() {
 	const PostLoading = PostLoadingComponent(Posts);
 	const [appState, setAppState] = useState({
@@ -21,7 +23,6 @@ function App() {
 	}, [setAppState]);
 	return (
 		<div className="App">
-			<h1>Latest Posts</h1>
 			<PostLoading isLoading={appState.loading} posts={appState.posts} />
 		</div>
 	);

@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 		borderBottom: `2px solid ${theme.palette.divider}`,
 		color: '#F0EAD6',
 		background: '#536872',
-		alignItems: 'center',
 	},
 	search: {
     position: 'relative',
@@ -22,12 +21,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
+    margin: '10px',
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -65,7 +59,7 @@ function Header() {
 				position="static"
 				className={classes.appBar}>
 				<Toolbar>
-					<Typography variant="h4" color="inherit">
+					<Typography variant="h4" style={{ flex: 1 }}>
 						Mehr Science Forum
 					</Typography>
 

@@ -6,6 +6,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles((theme) => ({
 	post: {
@@ -50,6 +53,7 @@ const Posts = (props) => {
             <Typography variant = "h4">
 			    Latest Posts
 			</Typography>
+			   <Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
 				<Grid container spacing={3} alignItems="flex-end">
 					{posts.map((post) => {
 						return (
@@ -66,23 +70,24 @@ const Posts = (props) => {
 											variant="h2 "
 											component="h2"
 											className={classes.postTitle}>
-											{post.title.substr(0, 50)}...
+											{post.title.substr(0, 60)}...
 										</Typography>
 										<div>
 											<Typography variant="p" color="textSecondary"
 											                className={classes.postText}>
-												{post.annotation}...
+												{post.annotation.substr(0, 350)}...
 											</Typography>
 										</div>
-										<div>
-											<Typography variant="p" color="textPrimary">
-												Мақолаи {post.type.toLowerCase()}
-											</Typography>
-										</div>
-											<Typography variant="p" color="textPrimary">
-												Мавзӯъ:  {post.category.toLowerCase()}
-											</Typography>
 									</CardContent>
+									<Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
+										<List>
+											<ListItemText>
+												Мақолаи {post.type.toLowerCase()}
+											</ListItemText>
+											<ListItemText>
+												Бахши  {post.category.toLowerCase()}
+											</ListItemText>
+										</List>
 								</Card>
 							</Grid>
 						);

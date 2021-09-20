@@ -70,10 +70,10 @@ const Posts = (props) => {
 											variant="h2 "
 											component="h2"
 											className={classes.postTitle}>
-											{post.title.substr(0, 60)}...
+											{post.title}
 										</Typography>
 										<div>
-											<Typography variant="p" color="textSecondary"
+											<Typography variant="body2" color="textSecondary"
 											                className={classes.postText}>
 												{post.annotation.substr(0, 350)}...
 											</Typography>

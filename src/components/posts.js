@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
 	post: {
@@ -60,10 +61,16 @@ const Posts = (props) => {
 							// Enterprise card is full width at sm breakpoint
 							<Grid item key={post.author} xs={12} md={4}>
 								<Card className={classes.card}>
+								    <Link
+								    color = 'textPrimary'
+								    href = {'post/' + post.slug}
+								    className = {classes.link}
+								    >
 									<CardMedia
 										className={classes.cardMedia}
 										image="https://source.unsplash.com/random"
 										title="Rasm"/>
+									</Link>
 									<CardContent className={classes.cardContent}>
 										<Typography
 											gutterBottom

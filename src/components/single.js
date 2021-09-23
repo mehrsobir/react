@@ -24,8 +24,9 @@ export default function Post() {
 
 	useEffect(() => {
 		axiosInstance.get(slug).then((res) => {
-			setData({ posts: res.data });
-			console.log(res.data);
+			setData({
+				posts: res.data,
+			});
 		});
 	}, [setData]);
 
@@ -42,18 +43,18 @@ export default function Post() {
 						color="textPrimary"
 						gutterBottom
 					>
-						{data.posts.title}
-					</Typography>
+						{data.posts.title}{' '}
+					</Typography>{' '}
 					<Typography
 						variant="h5"
 						align="center"
 						color="textSecondary"
 						paragraph
 					>
-						{data.posts.text}
-					</Typography>
-				</Container>
-			</div>
+						{data.posts.text}{' '}
+					</Typography>{' '}
+				</Container>{' '}
+			</div>{' '}
 		</Container>
 	);
 }

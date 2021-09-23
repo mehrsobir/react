@@ -20,7 +20,7 @@ const routing = (
 				<Route exact path="/create" component={Register} />
 				<Route path="/login" component={Login} />
 				<Route path="/logout" component={Logout} />
-				<Route path="/post/:slug" component={Single} />
+				<Route path="/:slug" component={Single} />
 			</Switch>
 			<Footer />
 		</React.StrictMode>

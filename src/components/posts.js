@@ -63,7 +63,7 @@ const Posts = (props) => {
 								<Card className={classes.card}>
 								    <Link
 								    color = 'textPrimary'
-								    href = {'post/' + post.slug}
+								    href = {post.slug}
 								    className = {classes.link}
 								    >
 									<CardMedia

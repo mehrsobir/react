@@ -83,7 +83,7 @@ const Search = () => {
 										</Typography>
 										<div className={classes.postText}>
 											<Typography color="textSecondary">
-												{post.anotation.substr(0, 40)}...
+												{post.annotation.substr(0, 40)}...
 											</Typography>
 										</div>
 									</CardContent>

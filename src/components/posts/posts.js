@@ -74,7 +74,7 @@ const Posts = (props) => {
 									<CardContent className={classes.cardContent}>
 										<Typography
 											gutterBottom
-											variant="h2 "
+											variant="h2"
 											component="h2"
 											className={classes.postTitle}>
 											{post.title}

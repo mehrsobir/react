@@ -33,8 +33,8 @@ export default function Create() {
 		id: '',
 		title: '',
 		slug: '',
-		excerpt: '',
-		content: '',
+		annotation: '',
+		text: '',
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
@@ -43,14 +43,13 @@ export default function Create() {
 		axiosInstance.get('admin/edit/postdetail/' + id).then((res) => {
 			updateFormData({
 				...formData,
-				['title']: res.data.title,
-				['annotation']: res.data.excerpt,
-				['slug']: res.data.slug,
-				['content']: res.data.content,
+				title: res.data.title,
+				annotation: res.data.annotation,
+				slug: res.data.slug,
+				text: res.data.text,
 			});
-			console.log(res.data);
 		});
-	}, [updateFormData]);
+	}, [updateFormData,id, formData]);
 
 	const handleChange = (e) => {
 		updateFormData({
@@ -62,14 +61,13 @@ export default function Create() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(formData);
 
 		axiosInstance.put(`admin/edit/` + id + '/', {
 			title: formData.title,
 			slug: formData.slug,
-			author: 1,
-			excerpt: formData.annotation,
-			content: formData.content,
+			author: 2,
+			annotation: formData.annotation,
+			text: formData.text,
 		});
 		history.push({
 			pathname: '/admin/',
@@ -106,21 +104,6 @@ export default function Create() {
 								variant="outlined"
 								required
 								fullWidth
-								id="excerpt"
-								label="Post Excerpt"
-								name="excerpt"
-								autoComplete="excerpt"
-								value={formData.annotation}
-								onChange={handleChange}
-								multiline
-								rows={8}
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
 								id="slug"
 								label="slug"
 								name="slug"
@@ -134,10 +117,25 @@ export default function Create() {
 								variant="outlined"
 								required
 								fullWidth
-								id="content"
-								label="content"
-								name="content"
-								autoComplete="content"
+								id="annotation"
+								label="Post annotation"
+								name="annotation"
+								autoComplete="annotation"
+								value={formData.annotation}
+								onChange={handleChange}
+								multiline
+								rows={8}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								id="text"
+								label="text"
+								name="text"
+								autoComplete="text"
 								value={formData.content}
 								onChange={handleChange}
 								multiline

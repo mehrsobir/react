@@ -45,8 +45,8 @@ export default function Create() {
 			.replace(/\s+/g, '-') // Replace spaces with -
 			.replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
 			.replace(/&/g, '-and-') // Replace & with 'and'
-			.replace(/[^\w\-]+/g, '') // Remove all non-word characters
-			.replace(/\-\-+/g, '-') // Replace multiple - with single -
+			.replace(/[^\w-]+/g, '') // Remove all non-word characters
+			.replace(/-+/g, '-') // Replace multiple - with single -
 			.replace(/^-+/, '') // Trim - from start of text
 			.replace(/-+$/, ''); // Trim - from end of text
 	}
@@ -56,18 +56,18 @@ export default function Create() {
 		title: '',
 		slug: '',
 		annotation: '',
-		content: '',
+		text: '',
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
 
 	const handleChange = (e) => {
-		if ([e.target.name] == 'title') {
+		if ([e.target.name] === 'title') {
 			updateFormData({
 				...formData,
 				// Trimming any whitespace
 				[e.target.name]: e.target.value.trim(),
-				['slug']: slugify(e.target.value.trim()),
+				slug: slugify(e.target.value.trim()),
 			});
 		} else {
 			updateFormData({
@@ -84,14 +84,30 @@ export default function Create() {
 			.post(`admin/create/`, {
 				title: formData.title,
 				slug: formData.slug,
-				author: 1,
-				annotation: formData.excerpt,
-				content: formData.content,
+				author: 2,
+				annotation: formData.annotation,
+				text: formData.text,
 			})
 			.then((res) => {
 				history.push('/admin/');
 			});
 	};
+
+//	const handleSubmit = (e) => {
+//		e.preventDefault();
+//		let formData = new FormData();
+//		formData.append('title', formData.title);
+//		formData.append('slug', formData.slug);
+//		formData.append('author', 1);
+//		formData.append('excerpt', formData.annotation);
+//		formData.append('content', postData.text);
+////		formData.append('image', postimage.image[0]);
+//		axiosInstance.post(`admin/create/`, formData);
+//		history.push({
+//			pathname: '/admin/',
+//		});
+//		window.location.reload();
+//	};
 
 	const classes = useStyles();
 
@@ -122,20 +138,6 @@ export default function Create() {
 								variant="outlined"
 								required
 								fullWidth
-								id="excerpt"
-								label="Post Excerpt"
-								name="excerpt"
-								autoComplete="excerpt"
-								onChange={handleChange}
-								multiline
-								rows={4}
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
 								id="slug"
 								label="slug"
 								name="slug"
@@ -149,10 +151,24 @@ export default function Create() {
 								variant="outlined"
 								required
 								fullWidth
-								id="content"
-								label="content"
-								name="content"
-								autoComplete="content"
+								id="annotation"
+								label="Post annotation"
+								name="annotation"
+								autoComplete="annotation"
+								onChange={handleChange}
+								multiline
+								rows={4}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								id="text"
+								label="text"
+								name="text"
+								autoComplete="text"
 								onChange={handleChange}
 								multiline
 								rows={4}

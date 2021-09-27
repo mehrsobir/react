@@ -17,7 +17,6 @@ function App() {
 		axiosInstance.get().then((res) => {
 			const allPosts = res.data;
 			setAppState({ loading: false, posts: allPosts });
-			console.log(res.data);
 		});
 	}, [setAppState]);
 	return (

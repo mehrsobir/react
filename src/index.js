@@ -21,7 +21,7 @@ const routing = (
 		<React.StrictMode>
 			<Header />
 			<Switch>
-				<Route exact path="/" component={App} />
+				<Route exact path="/posts" component={App} />
 				<Route exact path="/admin" component={Admin} />
 				<Route exact path="/admin/create" component={Create} />
 				<Route exact path="/admin/edit/:id" component={Edit} />

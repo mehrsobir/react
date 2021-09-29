@@ -70,7 +70,7 @@ const Posts = (props) => {
 											<TableCell align="left">
 												<Link
 													color="textPrimary"
-													href={'/post/' + post.slug}
+													href={'/article/' + post.id}
 													className={classes.link}
 												>
 													{post.title}

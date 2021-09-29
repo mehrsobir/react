@@ -53,16 +53,20 @@ export default function Create() {
 
 	const history = useHistory();
 	const initialFormData = Object.freeze({
+	    author: '',
 		title: '',
 		slug: '',
 		annotation: '',
 		text: '',
+		source: '',
+		type: '',
+		category: ''
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
 
 	const handleChange = (e) => {
-		if ([e.target.name] === 'title') {
+		if ([e.target.name] == 'title') {
 			updateFormData({
 				...formData,
 				// Trimming any whitespace
@@ -80,34 +84,21 @@ export default function Create() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		axiosInstance
-			.post(`admin/create/`, {
-				title: formData.title,
-				slug: formData.slug,
-				author: 2,
-				annotation: formData.annotation,
-				text: formData.text,
-			})
-			.then((res) => {
-				history.push('/admin/');
-			});
+		let formData = new FormData();
+		formData.append('author', 1);
+		formData.append('title', formData.title);
+		formData.append('slug', formData.slug);
+		formData.append('annotation', formData.annotation);
+		formData.append('text', formData.text);
+		formData.append('source', formData.source);
+		formData.append('type', formData.type);
+		formData.append('category', formData.category);
+		axiosInstance.post(`admin/create/`, formData);
+		history.push({
+			pathname: '/admin/',
+		});
+		window.location.reload();
 	};
-
-//	const handleSubmit = (e) => {
-//		e.preventDefault();
-//		let formData = new FormData();
-//		formData.append('title', formData.title);
-//		formData.append('slug', formData.slug);
-//		formData.append('author', 1);
-//		formData.append('excerpt', formData.annotation);
-//		formData.append('content', postData.text);
-////		formData.append('image', postimage.image[0]);
-//		axiosInstance.post(`admin/create/`, formData);
-//		history.push({
-//			pathname: '/admin/',
-//		});
-//		window.location.reload();
-//	};
 
 	const classes = useStyles();
 
@@ -169,6 +160,48 @@ export default function Create() {
 								label="text"
 								name="text"
 								autoComplete="text"
+								onChange={handleChange}
+								multiline
+								rows={4}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								id="source"
+								label="source"
+								name="source"
+								autoComplete="source"
+								onChange={handleChange}
+								multiline
+								rows={4}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								id="type"
+								label="type"
+								name="type"
+								autoComplete="type"
+								onChange={handleChange}
+								multiline
+								rows={4}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								id="category"
+								label="category"
+								name="category"
+								autoComplete="category"
 								onChange={handleChange}
 								multiline
 								rows={4}

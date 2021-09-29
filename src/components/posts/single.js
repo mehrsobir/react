@@ -17,18 +17,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Post() {
-	const { slug } = useParams();
+	const { id } = useParams();
 	const classes = useStyles();
 
 	const [data, setData] = useState({ posts: [] });
 
 	useEffect(() => {
-		axiosInstance.get(slug).then((res) => {
+		axiosInstance.get('article/' + id).then((res) => {
 			setData({
 				posts: res.data,
 			});
 		});
-	}, [setData, slug]);
+	}, [setData, id]);
 
 	return (
 		<Container component="main" maxWidth="md">

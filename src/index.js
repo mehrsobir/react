@@ -21,7 +21,7 @@ const routing = (
 		<React.StrictMode>
 			<Header />
 			<Switch>
-				<Route exact path="/posts" component={App} />
+				<Route exact path="/" component={App} />
 				<Route exact path="/admin" component={Admin} />
 				<Route exact path="/admin/create" component={Create} />
 				<Route exact path="/admin/edit/:id" component={Edit} />
@@ -29,7 +29,7 @@ const routing = (
 				<Route exact path="/register" component={Register} />
 				<Route path="/login" component={Login} />
 				<Route path="/logout" component={Logout} />
-				<Route path="/:slug" component={Single} />
+				<Route path="/article/:id" component={Single} />
 				<Route path="/search" component={Search} />
 			</Switch>
 			<Footer />

@@ -48,6 +48,7 @@ export default function Create() {
 				slug: res.data.slug,
 				text: res.data.text,
 			});
+			console.log(formData)
 		});
 	}, [updateFormData,id, formData]);
 
@@ -136,7 +137,7 @@ export default function Create() {
 								label="text"
 								name="text"
 								autoComplete="text"
-								value={formData.content}
+								value={formData.text}
 								onChange={handleChange}
 								multiline
 								rows={8}

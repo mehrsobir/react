@@ -1,15 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
-import Link from '@material-ui/core/Link';
+import { Typography, Container, Card, CardContent, CardMedia, Grid, Divider, List, ListItemText, Link } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
 	post: {
@@ -63,7 +55,7 @@ const Posts = (props) => {
 								<Card className={classes.card}>
 								    <Link
 								    color = 'textPrimary'
-								    href = {post.slug}
+								    href = {'article/' + post.id}
 								    className = {classes.link}
 								    >
 									<CardMedia
@@ -89,10 +81,10 @@ const Posts = (props) => {
 									<Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
 										<List>
 											<ListItemText>
-												Мақолаи {post.type.toLowerCase()}
+												Мақолаи {post.type.toLowerCase}
 											</ListItemText>
 											<ListItemText>
-												Бахши  {post.category.toLowerCase()}
+												Бахши  {post.category.toLowerCase}
 											</ListItemText>
 										</List>
 								</Card>

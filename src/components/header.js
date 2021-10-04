@@ -42,7 +42,7 @@ function Header() {
 					<Typography variant="h4" style={{ flex: 1 }}>
 					<Link
 							component={NavLink}
-							to="/posts"
+							to="/"
 							underline="none"
 							color="textPrimary"
 						>

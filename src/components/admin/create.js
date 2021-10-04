@@ -66,6 +66,7 @@ export default function Create() {
 	const [formData, updateFormData] = useState(initialFormData);
 
 	const handleChange = (e) => {
+	// eslint-disable-next-line
 		if ([e.target.name] == 'title') {
 			updateFormData({
 				...formData,

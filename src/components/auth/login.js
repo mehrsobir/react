@@ -54,15 +54,14 @@ export default function SignIn() {
 		e.preventDefault();
 
 		axiosInstance
-			.post(`token/`, {
-				email: formData.email,
+			.post(`user/login/`, {
+				username: formData.email,
 				password: formData.password,
 			})
 			.then((res) => {
-				localStorage.setItem('access_token', res.data.access);
-				localStorage.setItem('refresh_token', res.data.refresh);
+				localStorage.setItem('Token', res.data.token);
 				axiosInstance.defaults.headers['Authorization'] =
-					'JWT ' + localStorage.getItem('access_token');
+					'Token ' + localStorage.getItem('Token');
 				history.push('/');
 			});
 	};

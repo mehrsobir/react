@@ -14,7 +14,9 @@ function App() {
 	});
 
 	useEffect(() => {
-		axiosInstance.get().then((res) => {
+	console.log('Token ' + localStorage.getItem('Token'))
+		axiosInstance.get('/')
+		.then((res) => {
 			const allPosts = res.data;
 			setAppState({ loading: false, posts: allPosts });
 		});

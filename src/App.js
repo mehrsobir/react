@@ -14,7 +14,6 @@ function App() {
 	});
 
 	useEffect(() => {
-	console.log('Token ' + localStorage.getItem('Token'))
 		axiosInstance.get('/')
 		.then((res) => {
 			const allPosts = res.data;

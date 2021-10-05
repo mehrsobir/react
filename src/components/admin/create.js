@@ -72,8 +72,10 @@ export default function Create() {
 				...formData,
 				// Trimming any whitespace
 				[e.target.name]: e.target.value.trim(),
-				slug: slugify(e.target.value.trim()),
+				// eslint-disable-next-line
+				["slug"]: slugify(e.target.value.trim()),
 			});
+
 		} else {
 			updateFormData({
 				...formData,

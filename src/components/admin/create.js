@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../axios';
-import { useHistory } from 'react-router-dom';
+
+//import { useHistory } from 'react-router-dom';
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -51,7 +52,7 @@ export default function Create() {
 			.replace(/-+$/, ''); // Trim - from end of text
 	}
 
-	const history = useHistory();
+
 	const initialFormData = Object.freeze({
 	    author: '',
 		title: '',
@@ -85,22 +86,25 @@ export default function Create() {
 		}
 	};
 
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		let formData = new FormData();
-		formData.append('author', 1);
-		formData.append('title', formData.title);
-		formData.append('slug', formData.slug);
-		formData.append('annotation', formData.annotation);
-		formData.append('text', formData.text);
-		formData.append('source', formData.source);
-		formData.append('type', formData.type);
-		formData.append('category', formData.category);
-		axiosInstance.post(`admin/create/`, formData);
-		history.push({
-			pathname: '/admin/',
-		});
-		window.location.reload();
+		console.log(formData);
+		axiosInstance
+			.post(`admin/create/`, {
+				author: 1,
+				title: formData.title,
+				slug: formData.slug,
+				annotation: formData.annotation,
+				text: formData.text,
+				source: formData.source,
+				type: formData.type,
+				category: formData.category,
+
+
+			})
+			;
+
 	};
 
 	const classes = useStyles();
@@ -114,6 +118,7 @@ export default function Create() {
 					Create New Post
 				</Typography>
 				<form className={classes.form} noValidate>
+
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField

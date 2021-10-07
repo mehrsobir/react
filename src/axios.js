@@ -1,14 +1,18 @@
 import axios from 'axios';
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-axios.defaults.xsrfCookieName = "csrftoken";
-const baseURL = 'http://127.0.0.1:8000/';
+const baseURL = 'http://localhost:8000';
+
+
+
 
 const axiosInstance = axios.create({
 	baseURL: baseURL,
 	timeout: 5000,
 	headers: {
-		Authorization: 'Token ' + localStorage.getItem('Token'),
-		'Content-Type': 'application/json'
+		'Authorization': 'Token ' + localStorage.getItem('Token'),
+        'Accept': 'application/json',
+		'Content-Type': 'application/json',
+		'X-CSRFToken': '',
+
 	},
 });
 

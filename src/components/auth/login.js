@@ -50,9 +50,6 @@ export default function SignIn() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-	    console.log(formData.email)
-	    console.log(formData.password)
 		axiosInstance
 			.post(`user/login/`, {
 				username: formData.email,
@@ -60,6 +57,9 @@ export default function SignIn() {
 			})
 			.then((res) => {
 				localStorage.setItem('Token', res.data.token);
+				console.log(res.headers)
+				console.log(res.Cookie)
+				console.log(res.data.token)
 				axiosInstance.defaults.headers['Authorization'] =
 					'Token ' + localStorage.getItem('Token');
 				history.push('/');

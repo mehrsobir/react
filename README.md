@@ -1,3 +1,11 @@
+	const history = useHistory();
+			history.push({
+			pathname: '/admin/',
+		});
+.then((res) => {
+				history.push('/login');
+			})
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

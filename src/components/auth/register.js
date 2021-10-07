@@ -40,6 +40,7 @@ export default function SignUp() {
 		email: '',
 		username: '',
 		password: '',
+		password1: ''
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
@@ -55,16 +56,20 @@ export default function SignUp() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(formData);
-
+        if(formData["password"] === formData["password1"]){
 		axiosInstance
 			.post(`user/register/`, {
 				email: formData.email,
 				user_name: formData.username,
 				password: formData.password,
+				password1: formData.password1
 			})
 			.then((res) => {
 				history.push('/login');
 			});
+			}else{
+			alert("Passwords do not match!")
+			}
 	};
 
 	const classes = useStyles();
@@ -112,6 +117,19 @@ export default function SignUp() {
 								label="Password"
 								type="password"
 								id="password"
+								autoComplete="current-password"
+								onChange={handleChange}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								name="password1"
+								label="Password1"
+								type="password"
+								id="password1"
 								autoComplete="current-password"
 								onChange={handleChange}
 							/>

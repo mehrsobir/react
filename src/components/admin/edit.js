@@ -31,49 +31,93 @@ export default function Create() {
 	const { id } = useParams();
 	const initialFormData = Object.freeze({
 		id: '',
+		author: 1,
 		title: '',
 		slug: '',
 		annotation: '',
 		text: '',
+		source: '',
+		type: '',
+		category: '',
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
 
+    function slugify(string) {
+		const a =
+			'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
+		const b =
+			'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
+		const p = new RegExp(a.split('').join('|'), 'g');
+
+		return string
+			.toString()
+			.toLowerCase()
+			.replace(/\s+/g, '-') // Replace spaces with -
+			.replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
+			.replace(/&/g, '-and-') // Replace & with 'and'
+			.replace(/[^\w-]+/g, '') // Remove all non-word characters
+			.replace(/-+/g, '-') // Replace multiple - with single -
+			.replace(/^-+/, '') // Trim - from start of text
+			.replace(/-+$/, ''); // Trim - from end of text
+	}
+
 	useEffect(() => {
-		axiosInstance.get('admin/edit/postdetail/' + id).then((res) => {
+		axiosInstance.get('admi/edit/postdetail/' + id).then((res) => {
 			updateFormData({
 				...formData,
+				id: id,
+				author: 1,
 				title: res.data.title,
 				annotation: res.data.annotation,
 				slug: res.data.slug,
 				text: res.data.text,
+				source: res.data.source,
+		        type: res.data.type,
+		        category: res.data.category,
 			});
-			console.log(formData)
 		});
-	}, [updateFormData,id, formData]);
+	},[]);
 
 	const handleChange = (e) => {
-		updateFormData({
-			...formData,
-			// Trimming any whitespace
-			[e.target.name]: e.target.value.trim(),
-		});
+	// eslint-disable-next-line
+		if ([e.target.name] == 'title') {
+			updateFormData({
+				...formData,
+				// Trimming any whitespace
+				[e.target.name]: e.target.value.trim(),
+				// eslint-disable-next-line
+				["slug"]: slugify(e.target.value.trim()),
+			});
+
+		} else {
+			updateFormData({
+				...formData,
+				// Trimming any whitespace
+				[e.target.name]: e.target.value.trim(),
+			});
+		}
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		axiosInstance.put(`admin/edit/` + id + '/', {
+		axiosInstance
+		    .put(`admi/edit/` + id + '/', {
+		    id: id,
+			author: 1,
 			title: formData.title,
 			slug: formData.slug,
-			author: 2,
 			annotation: formData.annotation,
 			text: formData.text,
-		});
-		history.push({
-			pathname: '/admin/',
-		});
-		window.location.reload();
+			source: formData.source,
+		    type: formData.type,
+		    category: formData.category,
+		})
+		.then(function () {
+					history.push({
+						pathname: '/admin/',
+					});
+			});
 	};
 
 	const classes = useStyles();
@@ -141,6 +185,45 @@ export default function Create() {
 								onChange={handleChange}
 								multiline
 								rows={8}
+							/>
+						</Grid>
+							<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								id="source"
+								label="source"
+								name="source"
+								autoComplete="source"
+								value={formData.source}
+								onChange={handleChange}
+							/>
+						</Grid>
+							<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								id="type"
+								label="type"
+								name="type"
+								autoComplete="type"
+								value={formData.type}
+								onChange={handleChange}
+							/>
+						</Grid>
+							<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								id="category"
+								label="category"
+								name="category"
+								autoComplete="category"
+								value={formData.category}
+								onChange={handleChange}
 							/>
 						</Grid>
 					</Grid>

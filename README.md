@@ -1,7 +1,5 @@
-	const history = useHistory();
-			history.push({
-			pathname: '/admin/',
-		});
+	
+			
 .then((res) => {
 				history.push('/login');
 			})

@@ -65,7 +65,7 @@ export default function SignUp() {
 				password1: formData.password1
 			})
 			.then((res) => {
-				history.push('/login');
+				history.push('/');
 			});
 			}else{
 			alert("Passwords do not match!")

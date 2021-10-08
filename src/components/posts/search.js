@@ -48,7 +48,6 @@ const Search = () => {
 		axiosInstance.get(search + '/' + window.location.search).then((res) => {
 			const allPosts = res.data;
 			setAppState({ posts: allPosts });
-			console.log(res.data);
 		});
 	}, [setAppState]);
 

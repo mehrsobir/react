@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Card, CardContent, CardMedia, Grid, Divider, List, ListItemText, Link } from '@material-ui/core';
+import { Typography, Container, Card, CardContent, CardMedia, Grid, Divider, List,
+        ListItemText, Link } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '12px',
 		textAlign: 'left',
 		marginBottom: theme.spacing(2),
-		height: '150px'
+		height: '120px'
 	},
 }));
 
@@ -51,18 +52,19 @@ const Posts = (props) => {
 					{posts.map((post) => {
 						return (
 							// Enterprise card is full width at sm breakpoint
+
 							<Grid item key={post.author} xs={12} md={4}>
+							<Link
+						     color = 'textPrimary'
+						     href = {'article/' + post.id}
+						     className = {classes.link}
+							>
 								<Card className={classes.card}>
-								    <Link
-								    color = 'textPrimary'
-								    href = {'article/' + post.id}
-								    className = {classes.link}
-								    >
 									<CardMedia
 										className={classes.cardMedia}
 										image="https://source.unsplash.com/random"
 										title="Rasm"/>
-									</Link>
+
 									<CardContent className={classes.cardContent}>
 										<Typography
 											gutterBottom
@@ -88,6 +90,7 @@ const Posts = (props) => {
 											</ListItemText>
 										</List>
 								</Card>
+				            </Link>
 							</Grid>
 						);
 					})}

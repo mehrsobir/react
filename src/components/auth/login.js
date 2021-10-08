@@ -57,9 +57,6 @@ export default function SignIn() {
 			})
 			.then((res) => {
 				localStorage.setItem('Token', res.data.token);
-				console.log(res.headers)
-				console.log(res.Cookie)
-				console.log(res.data.token)
 				axiosInstance.defaults.headers['Authorization'] =
 					'Token ' + localStorage.getItem('Token');
 				history.push('/');

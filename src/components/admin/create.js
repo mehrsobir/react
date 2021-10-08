@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../axios';
 
-//import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -52,7 +52,7 @@ export default function Create() {
 			.replace(/-+$/, ''); // Trim - from end of text
 	}
 
-
+    const history = useHistory();
 	const initialFormData = Object.freeze({
 	    author: '',
 		title: '',
@@ -91,7 +91,7 @@ export default function Create() {
 		e.preventDefault();
 		console.log(formData);
 		axiosInstance
-			.post(`admin/create/`, {
+			.post(`admi/create/`, {
 				author: 1,
 				title: formData.title,
 				slug: formData.slug,
@@ -100,10 +100,10 @@ export default function Create() {
 				source: formData.source,
 				type: formData.type,
 				category: formData.category,
-
-
 			})
-			;
+			.then((res) => {
+				history.push('/admin');
+			});
 
 	};
 
@@ -118,7 +118,6 @@ export default function Create() {
 					Create New Post
 				</Typography>
 				<form className={classes.form} noValidate>
-
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
@@ -222,8 +221,7 @@ export default function Create() {
 						variant="contained"
 						color="primary"
 						className={classes.submit}
-						onClick={handleSubmit}
-					>
+						onClick={handleSubmit}>
 						Create Post
 					</Button>
 				</form>

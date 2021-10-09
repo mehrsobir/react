@@ -7,8 +7,11 @@ export default function SignUp() {
 
 	useEffect(() => {
 		localStorage.removeItem('Token');
+		localStorage.removeItem('User_id');
+		localStorage.removeItem('User_name');
 		axiosInstance.defaults.headers['Authorization'] = null;
 		history.push('/login');
+
 	});
 	return <div>Logout</div>;
 }

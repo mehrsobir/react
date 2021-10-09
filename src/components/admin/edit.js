@@ -44,20 +44,10 @@ export default function Create() {
 	const [formData, updateFormData] = useState(initialFormData);
 
     function slugify(string) {
-		const a =
-			'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
-		const b =
-			'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
-		const p = new RegExp(a.split('').join('|'), 'g');
-
 		return string
 			.toString()
 			.toLowerCase()
 			.replace(/\s+/g, '-') // Replace spaces with -
-			.replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
-			.replace(/&/g, '-and-') // Replace & with 'and'
-			.replace(/[^\w-]+/g, '') // Remove all non-word characters
-			.replace(/-+/g, '-') // Replace multiple - with single -
 			.replace(/^-+/, '') // Trim - from start of text
 			.replace(/-+$/, ''); // Trim - from end of text
 	}
@@ -85,7 +75,7 @@ export default function Create() {
 			updateFormData({
 				...formData,
 				// Trimming any whitespace
-				[e.target.name]: e.target.value.trim(),
+				[e.target.name]: e.target.value,
 				// eslint-disable-next-line
 				["slug"]: slugify(e.target.value.trim()),
 			});

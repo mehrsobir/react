@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
 	const classes = useStyles();
 	let history = useHistory();
+	const user = localStorage.getItem('User_name')
 	const [data, setData] = useState({ search: '' });
 
 	const goSearch = (e) => {
@@ -30,7 +31,6 @@ function Header() {
 			pathname: '/search/',
 			search: '?search=' + data.search,
 		});
-		window.location.reload();
 	};
 	return (
 		<React.Fragment>
@@ -47,6 +47,15 @@ function Header() {
 							color="textPrimary"
 						>
 						Mehr Science Forum
+						</Link>
+					</Typography>
+					<Typography variant="h4" style={{ flex: 1 }}>
+					<Link
+							component={NavLink}
+							to="/"
+							underline="none"
+							color="textPrimary"
+						>
 						</Link>
 					</Typography>
                     <SearchBar

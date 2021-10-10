@@ -44,53 +44,50 @@ const Posts = (props) => {
 	return (
 		<React.Fragment>
 			<Container maxWidth="md" component="main" className={classes.post}>
-            <Typography variant = "h4">
-			    Latest Posts
-			</Typography>
-			   <Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
+            			<Typography variant = "h4">
+			    		Latest Posts
+				</Typography>
+			   	<Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
 				<Grid container spacing={3} alignItems="flex-end">
 					{posts.map((post) => {
 						return (
-							// Enterprise card is full width at sm breakpoint
-
 							<Grid item key={post.author} xs={12} md={4}>
-							<Link
-						     color = 'textPrimary'
-						     href = {'article/' + post.id}
-						     className = {classes.link}
-							>
-								<Card className={classes.card}>
-									<CardMedia
-										className={classes.cardMedia}
-										image="https://source.unsplash.com/random"
-										title="Rasm"/>
+								<Link
+						     			color = 'textPrimary'
+						     			href = {'article/' + post.id}
+						     			className = {classes.link}>
+									<Card className={classes.card}>
+										<CardMedia
+											className={classes.cardMedia}
+											image="https://source.unsplash.com/random"
+											title="Rasm"/>
 
-									<CardContent className={classes.cardContent}>
-										<Typography
-											gutterBottom
-											variant="h2"
-											component="h2"
-											className={classes.postTitle}>
-											{post.title}
-										</Typography>
-										<div>
-											<Typography variant="body2" color="textSecondary"
-											                className={classes.postText}>
-												{post.annotation.substr(0, 350)}...
+										<CardContent className={classes.cardContent}>
+											<Typography
+												gutterBottom
+												variant="h2"
+												component="h2"
+												className={classes.postTitle}>
+												{post.title}
 											</Typography>
-										</div>
-									</CardContent>
-									<Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
+											<div>
+												<Typography variant="body2" color="textSecondary"
+											                className={classes.postText}>
+													{post.annotation.substr(0, 350)}...
+												</Typography>
+											</div>
+										</CardContent>
+										<Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
 										<List>
 											<ListItemText>
-												Мақолаи {post.type.toLowerCase}
+												Мақолаи {post.type.toLowerCase()}
 											</ListItemText>
 											<ListItemText>
-												Бахши  {post.category.toLowerCase}
+												Бахши  {post.category.toLowerCase()}
 											</ListItemText>
 										</List>
-								</Card>
-				            </Link>
+									</Card>
+				            			</Link>
 							</Grid>
 						);
 					})}

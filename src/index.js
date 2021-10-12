@@ -8,7 +8,6 @@ import Header from './components/header';
 import Footer from './components/footer';
 import Register from './components/auth/register';
 import Login from './components/auth/login';
-import Logout from './components/auth/logout';
 import Single from './components/posts/single';
 import Search from './components/posts/search';
 import Admin from './Admin';
@@ -28,7 +27,6 @@ const routing = (
 				<Route exact path="/admin/delete/:id" component={Delete} />
 				<Route exact path="/register" component={Register} />
 				<Route path="/login" component={Login} />
-				<Route path="/logout" component={Logout} />
 				<Route path="/article/:id" component={Single} />
 				<Route path="/search" component={Search} />
 			</Switch>

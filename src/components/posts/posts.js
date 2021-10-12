@@ -80,10 +80,10 @@ const Posts = (props) => {
 										<Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
 										<List>
 											<ListItemText>
-												Мақолаи {post.type.toLowerCase()}
+												Мақолаи {post.type}
 											</ListItemText>
 											<ListItemText>
-												Бахши  {post.category.toLowerCase()}
+												Бахши  {post.category}
 											</ListItemText>
 										</List>
 									</Card>

@@ -67,7 +67,7 @@ export default function Create() {
 		        category: res.data.category,
 			});
 		});
-	},[]);
+	},[formData, id]);
 
 	const handleChange = (e) => {
 	// eslint-disable-next-line

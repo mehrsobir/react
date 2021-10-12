@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
 	cardMedia: {
@@ -43,10 +44,12 @@ const useStyles = makeStyles((theme) => ({
 const Posts = (props) => {
 	const { posts } = props;
 	const classes = useStyles();
+	const author = localStorage.getItem('User_name')
 	if (!posts || posts.length === 0) return <p>Can not find any posts, sorry</p>;
 	return (
 		<React.Fragment>
 			<Container maxWidth="md" component="main">
+			<Typography variant="h5"> Latest Posts by {author}</Typography>
 				<Paper className={classes.root}>
 					<TableContainer className={classes.container}>
 						<Table stickyHeader aria-label="sticky table">

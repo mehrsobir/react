@@ -127,7 +127,7 @@ export default function SignUp() {
 								required
 								fullWidth
 								name="password1"
-								label="Password1"
+								label="Repeat Password"
 								type="password"
 								id="password1"
 								autoComplete="current-password"

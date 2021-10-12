@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import axiosInstance from '../../axios';
-import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useHistory, NavLink } from 'react-router-dom';
+import { setUser } from "../../Utils/Common";
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -32,15 +33,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function SignIn() {
+export default function Login() {
 	const history = useHistory();
+	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const initialFormData = Object.freeze({
 		email: '',
 		password: '',
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
-
 	const handleChange = (e) => {
 		updateFormData({
 			...formData,
@@ -50,18 +52,18 @@ export default function SignIn() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		axiosInstance
-			.post(`user/login/`, {
+		setError(null);
+		setLoading(false);
+		axios
+			.post('http://localhost:8000/user/login/', {
 				username: formData.email,
 				password: formData.password,
 			})
 			.then((res) => {
-				localStorage.setItem('Token', res.data.token);
-				localStorage.setItem('User_id', res.data.user_id);
-				localStorage.setItem('User_name', res.data.user_name);
-				axiosInstance.defaults.headers['Authorization'] =
-					'Token ' + localStorage.getItem('Token');
+			    setLoading(false);
+			    setUser(res.data.token, res.data.user['name']);
 				history.push('/');
+			window.location.reload();
 			});
 	};
 
@@ -73,7 +75,7 @@ export default function SignIn() {
 			<div className={classes.paper}>
 				<Avatar className={classes.avatar}></Avatar>
 				<Typography component="h1" variant="h5">
-					Sign in
+					Login
 				</Typography>
 				<form className={classes.form} noValidate>
 					<TextField
@@ -100,15 +102,17 @@ export default function SignIn() {
 						autoComplete="current-password"
 						onChange={handleChange}
 					/>
+					{error ? <div>{error}</div> : ''}
 					<Button
 						type="submit"
 						fullWidth
 						variant="contained"
 						color="primary"
+						disabled={loading}
 						className={classes.submit}
 						onClick={handleSubmit}
 					>
-						Sign In
+						{loading ? 'Loading...' : "Login"}
 					</Button>
 					<Grid container>
 						<Grid item xs>
@@ -117,8 +121,11 @@ export default function SignIn() {
 							</Link>
 						</Grid>
 						<Grid item>
-							<Link href="#" variant="body2">
-								{"Don't have an account? Sign Up"}
+							<Link
+							variant="body2"
+							to="/register"
+							component={NavLink}>
+								Don t have an account? Sign Up
 							</Link>
 						</Grid>
 					</Grid>

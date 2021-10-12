@@ -1,4 +1,5 @@
 import React , { useState } from 'react';
+import { getUser, removeUser } from "../Utils/Common";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
 	const classes = useStyles();
 	let history = useHistory();
-	const user = localStorage.getItem('User_name')
+	const user = getUser();
 	const [data, setData] = useState({ search: '' });
 
 	const goSearch = (e) => {
@@ -32,6 +33,12 @@ function Header() {
 			search: '?search=' + data.search,
 		});
 	};
+	const handleLogoutSubmit= () => {
+		removeUser();
+		history.push('/login');
+        window.location.reload();
+	};
+
 	return (
 		<React.Fragment>
 			<CssBaseline />
@@ -42,7 +49,7 @@ function Header() {
 					<Typography variant="h4" style={{ flex: 1 }}>
 					<Link
 							component={NavLink}
-							to="/"
+							to={user ? "/" : "/login"}
 							underline="none"
 							color="textPrimary"
 						>
@@ -52,48 +59,39 @@ function Header() {
 					<Typography variant="h4" style={{ flex: 1 }}>
 					<Link
 							component={NavLink}
-							to="/"
+							to="/admin"
 							underline="none"
 							color="textPrimary"
 						>
+						{user ? user : ""}
 						</Link>
 					</Typography>
-                    <SearchBar
+                   {user ?  <SearchBar
 						value={data.search}
 						onChange={(newValue) => setData({ search: newValue })}
 						onRequestSearch={() => goSearch(data.search)}
-					/>
+					/> : ""}
 
                     <nav>
 						<Link
 							color="textPrimary"
-							href="#"
 							className={classes.link}
 							component={NavLink}
 							to="/register"
+
 						>
-							Register
+							{user ? "" : "Register"}
 						</Link>
 					</nav>
 					<Button
-						href="#"
 						color="primary"
-						variant="outlined"
+						variant= {user ? "primary" : ""}
 						className={classes.link}
 						component={NavLink}
+						onClick={handleLogoutSubmit}
 						to="/login"
 					>
-						Login
-					</Button>
-					<Button
-						href="#"
-						color="primary"
-						variant="outlined"
-						className={classes.link}
-						component={NavLink}
-						to="/logout"
-					>
-						Logout
+						{user ? "Logout" : ""}
 					</Button>
                     <MenuIcon />
                 </Toolbar>

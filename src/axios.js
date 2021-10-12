@@ -1,5 +1,5 @@
 import axios from 'axios';
-//axios.defaults.xsrfHeaderName = "X-CSRFToken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
 //axios.defaults.withCredentials = true;
 const baseURL = 'http://localhost:8000';
 
@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 	timeout: 5000,
 	headers: {
 		'Authorization': 'Token ' + localStorage.getItem('Token'),
-//        'Accept': '*/*',
+        Accept: 'application/json',
 		'Content-Type': 'application/json',
 
 	},

@@ -32,6 +32,7 @@ function Header() {
 			pathname: '/search/',
 			search: '?search=' + data.search,
 		});
+		window.location.reload();
 	};
 	const handleLogoutSubmit= () => {
 		removeUser();
@@ -49,7 +50,7 @@ function Header() {
 					<Typography variant="h4" style={{ flex: 1 }}>
 					<Link
 							component={NavLink}
-							to={user ? "/" : "/login"}
+							to="/"
 							underline="none"
 							color="textPrimary"
 						>
@@ -63,7 +64,7 @@ function Header() {
 							underline="none"
 							color="textPrimary"
 						>
-						{user ? user : ""}
+						{user ? user['name'] : ""}
 						</Link>
 					</Typography>
                    {user ?  <SearchBar

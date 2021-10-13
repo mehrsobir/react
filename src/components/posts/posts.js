@@ -12,9 +12,6 @@ const useStyles = makeStyles((theme) => ({
 	cardMedia: {
 		paddingTop: '56.25%', // 16:9
 	},
-	link: {
-		margin: theme.spacing(1, 1.5),
-	},
 	cardHeader: {
 		backgroundColor:
 			theme.palette.type === 'light'
@@ -23,8 +20,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	postTitle: {
 		fontSize: '16px',
+		fontWeight: "bold",
 		textAlign: 'left',
 		height: '36px',
+		color: 'darkblue',
 	},
 	postText: {
 		display: 'flex',
@@ -52,10 +51,7 @@ const Posts = (props) => {
 					{posts.map((post) => {
 						return (
 							<Grid item key={post.author} xs={12} md={4}>
-								<Link
-						     			color = 'textPrimary'
-						     			href = {'article/' + post.id}
-						     			className = {classes.link}>
+
 									<Card className={classes.card}>
 										<CardMedia
 											className={classes.cardMedia}
@@ -63,6 +59,8 @@ const Posts = (props) => {
 											title="Rasm"/>
 
 										<CardContent className={classes.cardContent}>
+										<Link
+						     			    href = {'article/' + post.id}>
 											<Typography
 												gutterBottom
 												variant="h2"
@@ -70,6 +68,7 @@ const Posts = (props) => {
 												className={classes.postTitle}>
 												{post.title}
 											</Typography>
+				            			</Link>
 											<div>
 												<Typography variant="body2" color="textSecondary"
 											                className={classes.postText}>
@@ -80,14 +79,13 @@ const Posts = (props) => {
 										<Divider variant="middle" xs={12} md={12} style={{ margin: '10px'}}/>
 										<List>
 											<ListItemText>
-												Мақолаи {post.type}
+												Мақолаи {post.typeS.toLowerCase()}
 											</ListItemText>
 											<ListItemText>
-												Бахши  {post.category}
+												Бахши  {post.categoryS.toLowerCase()}
 											</ListItemText>
 										</List>
 									</Card>
-				            			</Link>
 							</Grid>
 						);
 					})}

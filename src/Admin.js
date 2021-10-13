@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Posts from './components/admin/posts';
-import PostLoadingComponent from './components/posts/postLoading';
 import axiosInstance from './axios';
 
 function Admin() {
-	const PostLoading = PostLoadingComponent(Posts);
 	const [appState, setAppState] = useState({
 		loading: true,
 		posts: null,
@@ -20,7 +18,7 @@ function Admin() {
 
 	return (
 		<div className="App">
-			<PostLoading isLoading={appState.loading} posts={appState.posts} />
+			{ appState.loading ? <h2>"Интизор бошед!"</h2> : <Posts posts = {appState.posts} />}
 		</div>
 	);
 }

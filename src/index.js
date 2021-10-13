@@ -15,12 +15,15 @@ import Create from './components/admin/create';
 import Edit from './components/admin/edit';
 import Delete from './components/admin/delete';
 
+import { getUser } from "./Utils/Common";
+
+const user = getUser();
 const routing = (
 	<Router>
 		<React.StrictMode>
 			<Header />
 			<Switch>
-				<Route exact path="/" component={App} />
+				<Route exact path="/" component={ user ? App : Login } />
 				<Route exact path="/admin" component={Admin} />
 				<Route exact path="/admin/create" component={Create} />
 				<Route exact path="/admin/edit/:id" component={Edit} />

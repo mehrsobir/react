@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Posts from './components/posts/posts';
-import PostLoadingComponent from './components/posts/postLoading';
 import axiosInstance from './axios';
 import 'fontsource-roboto'
 
 
 function App() {
-	const PostLoading = PostLoadingComponent(Posts);
 	const [appState, setAppState] = useState({
 		loading: true,
 		posts: null,
@@ -22,7 +20,7 @@ function App() {
 	}, [setAppState]);
 	return (
 		<div className="App">
-			<PostLoading isLoading={appState.loading} posts={appState.posts} />
+		  { appState.loading ? <h2>"Интизор бошед!"</h2> : <Posts posts = {appState.posts} />}
 		</div>
 	);
 }

@@ -31,7 +31,7 @@ export default function Create() {
 	const { id } = useParams();
 	const initialFormData = Object.freeze({
 		id: '',
-		author: 1,
+		author: '',
 		title: '',
 		slug: '',
 		annotation: '',
@@ -55,22 +55,21 @@ export default function Create() {
 	useEffect(() => {
 		axiosInstance.get('admi/edit/postdetail/' + id).then((res) => {
 			updateFormData({
-				...formData,
 				id: id,
-				author: 1,
+				author: res.data.author,
 				title: res.data.title,
-				annotation: res.data.annotation,
 				slug: res.data.slug,
+				annotation: res.data.annotation,
 				text: res.data.text,
 				source: res.data.source,
 		        type: res.data.type,
 		        category: res.data.category,
 			});
 		});
-	},[formData, id]);
+	}, [id]);
 
 	const handleChange = (e) => {
-	// eslint-disable-next-line
+	    // eslint-disable-next-line
 		if ([e.target.name] == 'title') {
 			updateFormData({
 				...formData,
@@ -94,7 +93,7 @@ export default function Create() {
 		axiosInstance
 		    .put(`admi/edit/` + id + '/', {
 		    id: id,
-			author: 1,
+			author: formData.author,
 			title: formData.title,
 			slug: formData.slug,
 			annotation: formData.annotation,

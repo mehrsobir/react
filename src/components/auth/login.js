@@ -61,7 +61,7 @@ export default function Login() {
 			})
 			.then((res) => {
 			    setLoading(false);
-			    setUser(res.data.token, res.data.user['name']);
+			    setUser(res.data.token, res.data.user);
 				history.push('/');
 			window.location.reload();
 			});

@@ -42,6 +42,7 @@ const Search = () => {
 	const [appState, setAppState] = useState({
 		search: '',
 		posts: [],
+		loading: true,
 	});
 
 	useEffect(() => {
@@ -49,12 +50,13 @@ const Search = () => {
 			const allPosts = res.data;
 			setAppState({ posts: allPosts });
 		});
-	}, [setAppState]);
+	}, []);
 
 	return (
 		<React.Fragment>
+		{appState.loading ? <h2>"Интизор бошед!"</h2> :
 			<Container maxWidth="md" component="main">
-				<Grid container spacing={5} alignItems="flex-end">
+				{appState.posts.length >0 ? <Grid container spacing={5} alignItems="flex-end">
 					{appState.posts.map((post) => {
 						return (
 							// Enterprise card is full width at sm breakpoint
@@ -62,7 +64,7 @@ const Search = () => {
 								<Card className={classes.card}>
 									<Link
 										color="textPrimary"
-										href={'/post/' + post.slug}
+										href={'/article/' + post.id}
 										className={classes.link}
 									>
 										<CardMedia
@@ -90,8 +92,9 @@ const Search = () => {
 							</Grid>
 						);
 					})}
-				</Grid>
+				</Grid> : <h2>"Мавод ёфт нашуд!!!"</h2> }
 			</Container>
+			}
 		</React.Fragment>
 	);
 };

@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { getUser } from "../../Utils/Common";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Create() {
+       const user = getUser();
 	  function slugify(string) {
 		return string
 			.toString()
@@ -81,7 +83,7 @@ export default function Create() {
 		e.preventDefault();
 		axiosInstance
 			.post(`admi/create/`, {
-				author: 1,
+				author: user['pk'],
 				title: formData.title,
 				slug: formData.slug,
 				annotation: formData.annotation,

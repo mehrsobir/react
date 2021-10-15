@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../axios';
 
 import { useHistory } from 'react-router-dom';
@@ -7,6 +7,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,8 +36,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Create() {
-       const user = getUser();
-	  function slugify(string) {
+    const user = getUser();
+    const [a, setA] = useState();
+    const [c, setC] = useState();
+
+
+	function slugify(string) {
 		return string
 			.toString()
 			.toLowerCase()
@@ -58,6 +64,20 @@ export default function Create() {
 
 	const [formData, updateFormData] = useState(initialFormData);
 
+    useEffect(() => {
+		axiosInstance.get('/type/')
+		.then((res) => {
+			  setA(res.data);
+		});
+	}, []);
+
+    useEffect(() => {
+		axiosInstance.get('/cat/')
+		.then((res) => {
+			  setC(res.data);
+		});
+	}, []);
+
 	const handleChange = (e) => {
 	// eslint-disable-next-line
 		if ([e.target.name] == 'title') {
@@ -73,9 +93,10 @@ export default function Create() {
 			updateFormData({
 				...formData,
 				// Trimming any whitespace
-				[e.target.name]: e.target.value.trim(),
+				[e.target.name]: e.target.value,
 			});
-		}
+			}
+
 	};
 
 
@@ -101,7 +122,7 @@ export default function Create() {
 	const classes = useStyles();
 
 	return (
-		<Container component="main" maxWidth="xs">
+		<Container component="main" maxWidth="md">
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Avatar className={classes.avatar}></Avatar>
@@ -128,7 +149,7 @@ export default function Create() {
 								required
 								fullWidth
 								id="slug"
-								label="slug"
+								label="Slug"
 								name="slug"
 								autoComplete="slug"
 								value={formData.slug}
@@ -146,7 +167,7 @@ export default function Create() {
 								autoComplete="annotation"
 								onChange={handleChange}
 								multiline
-								rows={4}
+								rows={6}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -155,12 +176,12 @@ export default function Create() {
 								required
 								fullWidth
 								id="text"
-								label="text"
+								label="Text"
 								name="text"
 								autoComplete="text"
 								onChange={handleChange}
 								multiline
-								rows={4}
+								rows={30}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -169,41 +190,49 @@ export default function Create() {
 								required
 								fullWidth
 								id="source"
-								label="source"
+								label="Source"
 								name="source"
 								autoComplete="source"
 								onChange={handleChange}
 								multiline
-								rows={4}
+								rows={2}
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
+						Type
+                        {a ?
+							 <Select
+							    variant="outlined"
 								required
 								fullWidth
 								id="type"
-								label="type"
-								name="type"
+                                label="Type"
+                                name="type"
 								autoComplete="type"
-								onChange={handleChange}
-								multiline
-								rows={4}
-							/>
+                                value={formData["type"]}
+								onChange={handleChange}>
+
+                                {a.map((typ) => (
+                            <MenuItem key = {typ.id} value={typ.id}>{typ.type}</MenuItem>))}
+                             </Select> : "Wait!"}
 						</Grid>
 						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
+						Category
+							{c ?
+							 <Select
+							    variant="outlined"
 								required
 								fullWidth
 								id="category"
-								label="category"
-								name="category"
+                                label="Category"
+                                name="category"
 								autoComplete="category"
-								onChange={handleChange}
-								multiline
-								rows={4}
-							/>
+                                value={formData["category"]}
+								onChange={handleChange}>
+
+                                {c.map((cat) => (
+                            <MenuItem key = {cat.id} value={cat.id}>{cat.category}</MenuItem>))}
+                             </Select> : "Wait!"}
 						</Grid>
 					</Grid>
 					<Button

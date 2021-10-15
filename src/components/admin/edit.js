@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../axios';
 import { useHistory, useParams } from 'react-router-dom';
+import '../../App.css';
 //MaterialUI
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Create() {
+    const [a, setA] = useState();
+    const [c, setC] = useState();
 	const history = useHistory();
 	const { id } = useParams();
 	const initialFormData = Object.freeze({
@@ -51,6 +56,20 @@ export default function Create() {
 			.replace(/^-+/, '') // Trim - from start of text
 			.replace(/-+$/, ''); // Trim - from end of text
 	}
+
+    useEffect(() => {
+		axiosInstance.get('/type/')
+		.then((res) => {
+			  setA(res.data);
+		});
+	}, []);
+
+    useEffect(() => {
+		axiosInstance.get('/cat/')
+		.then((res) => {
+			  setC(res.data);
+		});
+	}, []);
 
 	useEffect(() => {
 		axiosInstance.get('admi/edit/postdetail/' + id).then((res) => {
@@ -83,7 +102,7 @@ export default function Create() {
 			updateFormData({
 				...formData,
 				// Trimming any whitespace
-				[e.target.name]: e.target.value.trim(),
+				[e.target.name]: e.target.value,
 			});
 		}
 	};
@@ -112,7 +131,7 @@ export default function Create() {
 	const classes = useStyles();
 
 	return (
-		<Container component="main" maxWidth="sm">
+		<Container component="main" maxWidth="md">
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Typography component="h1" variant="h5">
@@ -158,7 +177,7 @@ export default function Create() {
 								value={formData.annotation}
 								onChange={handleChange}
 								multiline
-								rows={8}
+								rows={6}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -173,7 +192,7 @@ export default function Create() {
 								value={formData.text}
 								onChange={handleChange}
 								multiline
-								rows={8}
+								rows={30}
 							/>
 						</Grid>
 							<Grid item xs={12}>
@@ -189,31 +208,40 @@ export default function Create() {
 								onChange={handleChange}
 							/>
 						</Grid>
-							<Grid item xs={12}>
-							<TextField
-								variant="outlined"
+						<Grid item xs={12}>
+							Type
+                            {a ? <Select
+							    variant="outlined"
 								required
 								fullWidth
 								id="type"
-								label="type"
-								name="type"
+                                label="Type"
+                                name="type"
 								autoComplete="type"
-								value={formData.type}
-								onChange={handleChange}
-							/>
+                                value={formData.type}
+								onChange={handleChange}>
+
+                                {a.map((typ) => (
+                            <MenuItem key = {typ.id} value={typ.id}>{typ.type}</MenuItem>))}
+                             </Select> : "Wait!"}
 						</Grid>
 							<Grid item xs={12}>
-							<TextField
-								variant="outlined"
+							Category
+							{c ?
+							 <Select
+							    variant="outlined"
 								required
 								fullWidth
 								id="category"
-								label="category"
-								name="category"
+                                label="Category"
+                                name="category"
 								autoComplete="category"
-								value={formData.category}
-								onChange={handleChange}
-							/>
+                                value={formData.category}
+								onChange={handleChange}>
+
+                                {c.map((cat) => (
+                            <MenuItem key = {cat.id} value={cat.id}>{cat.category}</MenuItem>))}
+                             </Select> : "Wait!"}
 						</Grid>
 					</Grid>
 					<Button

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axiosInstance from '../../axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
@@ -41,15 +42,24 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Posts = (props) => {
-	const { posts } = props;
+export default function Admin() {
 	const classes = useStyles();
-	const author = localStorage.getItem('User_name')
-	if (!posts || posts.length === 0) return <p>Can not find any posts, sorry</p>;
+	const [appState, setAppState] = useState({
+		loading: true,
+		posts: null,
+	});
+
+	useEffect(() => {
+		axiosInstance.get().then((res) => {
+			const allPosts = res.data;
+			setAppState({ loading: false, posts: allPosts });
+		});
+	}, [setAppState]);
+	if (!appState.posts || appState.posts.length === 0) return <p>Can not find any posts, sorry</p>;
 	return (
 		<React.Fragment>
 			<Container maxWidth="md" component="main">
-			<Typography variant="h5"> Latest Posts by {author}</Typography>
+			<Typography variant="h5"> Latest Posts by </Typography>
 				<Paper className={classes.root}>
 					<TableContainer className={classes.container}>
 						<Table stickyHeader aria-label="sticky table">
@@ -62,7 +72,7 @@ const Posts = (props) => {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{posts.map((post) => {
+								{appState.posts.map((post) => {
 									return (
 										<TableRow>
 											<TableCell component="th" scope="row">
@@ -118,4 +128,3 @@ const Posts = (props) => {
 		</React.Fragment>
 	);
 };
-export default Posts;

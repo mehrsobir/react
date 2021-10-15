@@ -10,7 +10,7 @@ import Register from './components/auth/register';
 import Login from './components/auth/login';
 import Single from './components/posts/single';
 import Search from './components/posts/search';
-import Admin from './Admin';
+import Admin from './components/admin/admin';
 import Create from './components/admin/create';
 import Edit from './components/admin/edit';
 import Delete from './components/admin/delete';

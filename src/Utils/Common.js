@@ -1,3 +1,4 @@
+
 export const getUser=()=>{
     const userStr = localStorage.getItem("user");
     if (userStr) return JSON.parse(userStr);
@@ -16,3 +17,14 @@ export const setUser= (token, user) => {
 export const removeUser=()=>{
     localStorage.clear();
 }
+
+export const getTC=(c)=>{
+    let response = null;
+    fetch(`http://localhost:8000/${c}/`)
+    .then((res) => {
+			response = res.json();
+			console.log(response);
+		});
+  return response;
+}
+
